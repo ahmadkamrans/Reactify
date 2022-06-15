@@ -3,18 +3,26 @@ import './App.css';
 import About from './components/About';
 import Navbar from './components/Navbar';
 import Textform from './components/Textform';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
 function App() {
   const [mode, setMode] = useState('light')
   const [alert, setAlert] = useState({
-        message : '',
-        type: ''
+    message: '',
+    type: ''
   })
   return (
-    <div className="App">
+    <Router>
       <Navbar title="TextUtils" mode={mode} setMode={setMode} alert={alert} />
-      <Textform heading="Input Text to analyze" mode={mode} alert={alert} setAlert={setAlert} />
-      <About mode={mode}/>
-    </div>
+      <Routes>
+        <Route path="/about" element={<About mode={mode} />} />
+        <Route path="/" element={<Textform heading="Input Text to analyze" mode={mode} alert={alert} setAlert={setAlert} />} />
+        
+      </Routes>
+    </Router>
   );
 }
 
