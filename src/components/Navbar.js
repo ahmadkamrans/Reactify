@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 export default function Navbar(props) {
-    const { title } = props;
+    const { title, mode, setMode } = props;
+    const [textColor, setTextColor] = useState('dark')
+    const handleMode  = (e)=>{
+        if(mode === 'dark')
+        {
+            setMode('light')
+            setTextColor('dark')
+        }else{
+            setMode('dark')
+            setTextColor('light')
+        }
+    }
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`}>
                 <div className="container-fluid">
                     <a className="navbar-brand" href="/">{title}</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,10 +44,10 @@ export default function Navbar(props) {
                                 <a className="nav-link disabled" href="/" tabIndex="-1" aria-disabled="true">Disabled</a>
                             </li>
                         </ul>
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input c-pointer" onClick={handleMode} type="checkbox" id="flexSwitchCheckDefault" />
+                            <label className={`form-check-label text-${textColor}`} htmlFor="flexSwitchCheckDefault">{mode} Mode</label>
+                        </div>
                     </div>
                 </div>
             </nav>
