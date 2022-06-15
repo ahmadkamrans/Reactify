@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types';
+import Alert from './helpers/Alert';
 export default function Navbar(props) {
-    const { title, mode, setMode } = props;
+    const { title, mode, setMode, alert } = props;
     const [textColor, setTextColor] = useState('dark')
     const handleMode  = (e)=>{
         if(mode === 'dark')
@@ -51,6 +52,7 @@ export default function Navbar(props) {
                     </div>
                 </div>
             </nav>
+            <Alert message={alert.message} type={alert.type} />
         </>
     )
 }

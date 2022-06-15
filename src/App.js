@@ -5,10 +5,14 @@ import Navbar from './components/Navbar';
 import Textform from './components/Textform';
 function App() {
   const [mode, setMode] = useState('light')
+  const [alert, setAlert] = useState({
+        message : '',
+        type: ''
+  })
   return (
     <div className="App">
-      <Navbar title="TextUtils" mode={mode} setMode={setMode}/>
-      <Textform heading="Input Text to analyze" mode={mode}/>
+      <Navbar title="TextUtils" mode={mode} setMode={setMode} alert={alert} />
+      <Textform heading="Input Text to analyze" mode={mode} alert={alert} setAlert={setAlert} />
       <About mode={mode}/>
     </div>
   );

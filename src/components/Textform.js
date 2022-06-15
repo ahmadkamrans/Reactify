@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
+import  PropTypes  from 'prop-types';
+
 export default function Textform(props) {
     // Props
-    const { heading, mode } = props;
+    const { heading, mode, setAlert } = props;
     // State
     const [textBox, setText] = useState({
         text: '',
@@ -23,12 +25,34 @@ export default function Textform(props) {
         setText({
             text: textBox.text.toUpperCase()
         })
+
+        setAlert({
+            message : 'Text converted to upper case',
+            type : 'success'
+        })
+        setTimeout(()=>{
+            setAlert({
+                message : '',
+                type : ''
+            })
+        },2000)
     }
 
     const handleLowercase = (e) => {
         setText({
             text: textBox.text.toLowerCase()
         })
+
+        setAlert({
+            message : 'Text converted to lower case',
+            type : 'info'
+        })
+        setTimeout(()=>{
+            setAlert({
+                message : '',
+                type : ''
+            })
+        },2000)
     }
     const handleBold = (e) => {
         setText({
@@ -38,6 +62,17 @@ export default function Textform(props) {
                 fontWeight: 'bold'
             }
         })
+
+        setAlert({
+            message : 'Bold Filter Applied',
+            type : 'success'
+        })
+        setTimeout(()=>{
+            setAlert({
+                message : '',
+                type : ''
+            })
+        },2000)
     }
     return (
         <div className={`bg-${mode} text-${mode === 'dark' ? 'light' : 'dark'}`}>
@@ -62,4 +97,15 @@ export default function Textform(props) {
             </div>
         </div>
     )
+}
+
+Textform.propTypes = {
+    heading : PropTypes.string,
+    mode : PropTypes.string,
+    setAlert: PropTypes.any
+}
+
+Textform.defaultProps = {
+    heading : 'Input text to analyze',
+    mode : 'light'
 }
