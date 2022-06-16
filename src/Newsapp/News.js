@@ -15,7 +15,7 @@ export default class News extends Component {
     }
     componentDidMount() {
         let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}`
-
+    
         async function fetchText() {
             let response = await fetch(url);
             let data = await response.json();
@@ -28,18 +28,44 @@ export default class News extends Component {
             this.setState({
                 articles: response.articles,
                 loading: true,
-                totalPages: Math.floor(response.totalResults.length / 10)
+                totalPages: Math.floor(response.totalResults / 10)
             })
 
         })
+    }
+    componentDidUpdate()
+    {
+        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}`
+    
+        async function fetchText() {
+            let response = await fetch(url);
+            let data = await response.json();
+            return data
 
+        }
 
+        fetchText().then(response => {
+            console.log(response)
+            this.setState({
+                articles: response.articles,
+                loading: true,
+                totalPages: Math.floor(response.totalResults / 10)
+            })
+
+        })
     }
     render() {
+        const handlePage = (e, i) => {
+            this.setState({
+                page: i
+            })
+            console.log(this.state.page)
+        }
         return (
             <div className='container py-3'>
                 <h2 className='py-3'>Top Headlines</h2>
                 <div className="row h-100 ">
+
                     {
                         !this.state.loading &&
                         <div className="text-center">
@@ -47,19 +73,30 @@ export default class News extends Component {
                                 <span className="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                    }
-                    {this.state.loading && this.state.articles.map((article) => {
-                        return <NewsItem key={article.url} title={article.title} description={article.description} urlToImage={article.urlToImage} newsUrl={article.url} />
-                    })}
-                </div>
 
+
+                    }
+                    {
+                        // Loader before displaying news items
+                        this.state.loading && this.state.articles.map((article) => {
+                            return <NewsItem key={article.url} title={article.title} description={article.description} urlToImage={article.urlToImage} newsUrl={article.url} />
+                        })
+                    }
+                    <p>{this.state.totalPages}</p>
+                </div>
                 <nav aria-label="Page navigation example">
                     <ul className="pagination">
-                        <li className="page-item"><a className="page-link" href="/">Previous</a></li>
-                        <li className="page-item"><a className="page-link" href="/">1</a></li>
-                        <li className="page-item"><a className="page-link" href="/">2</a></li>
-                        <li className="page-item"><a className="page-link" href="/">3</a></li>
-                        <li className="page-item"><a className="page-link" href="/">Next</a></li>
+                        <li className="page-item"><button className="page-link">Previous</button></li>
+                        {
+                            [...Array(this.state.totalPages)].map((elementInArray, index) => (
+
+
+                                <li key={index} className="page-item"><button onClick={(e) => handlePage(e, index + 1)} className="page-link">{index + 1}</button></li>
+
+                            )
+                            )
+                        }
+                        <li className="page-item"><button className="page-link">Next</button></li>
                     </ul>
                 </nav>
             </div>
