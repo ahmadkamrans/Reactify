@@ -3,6 +3,7 @@ import './App.css';
 import About from './components/About';
 import Navbar from './components/Navbar';
 import Textform from './components/Textform';
+import Newsapp from './Newsapp/News';
 import {
   BrowserRouter as Router,
   Route,
@@ -20,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/about" element={<About mode={mode} />} />
         <Route path="/" element={<Textform heading="Input Text to analyze" mode={mode} alert={alert} setAlert={setAlert} />} />
-        
+        <Route path="/newsapp" element={<Newsapp/>} />
       </Routes>
     </Router>
   );

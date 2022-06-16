@@ -88,7 +88,7 @@ export default function Textform(props) {
 
                 <div className="my-3">
                     <h2>Text Summary</h2>
-                    <p className='text-end'>Words: {textBox.text.split(' ').length} Characters: {textBox.text.length} Reading Time: {0.008 * textBox.text.length} mins</p>
+                    <p className='text-end'>Words: {textBox.text.split(/\s+/).filter((element)=>{ return element.length !== 0}).length} Characters: {textBox.text.length} Reading Time: {0.008 * textBox.text.length} mins</p>
                 </div>
                 <div className="">
                     <h2 className='py-3'>Preview</h2>

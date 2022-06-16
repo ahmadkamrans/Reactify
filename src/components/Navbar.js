@@ -31,6 +31,9 @@ export default function Navbar(props) {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/newsapp">News App</Link>
+                            </li>
                         </ul>
                         <div className="form-check form-switch">
                             <input className="form-check-input c-pointer" onClick={handleMode} type="checkbox" id="flexSwitchCheckDefault" />
