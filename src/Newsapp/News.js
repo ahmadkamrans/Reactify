@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import Loader from '../components/helpers/Loader';
 import { Link } from 'react-router-dom';
 
 export default class News extends Component {
@@ -16,7 +17,15 @@ export default class News extends Component {
 
     }
     componentDidMount() {
-        let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
+        this.updateNews()
+    }
+
+    async updateNews()
+    {
+        this.setState({
+            loading: false
+        })
+        const url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
 
         async function fetchText() {
             let response = await fetch(url);
@@ -39,89 +48,29 @@ export default class News extends Component {
 
     handlePage = async (e, i) => {
         this.setState({
-            page: i,
-            loading : false
+            page: i
         })
-
-        let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
-
-        async function fetchText() {
-            let response = await fetch(url);
-            let data = await response.json();
-            return data
-
-        }
-
-        fetchText().then(response => {
-            console.log(response)
-            this.setState({
-                articles: response.articles,
-                loading: true,
-            })
-
-        })
-
-
-
+        this.updateNews()
     }
 
     handleNext = async (e) => {
         if (this.state.page < this.state.totalPages) {
 
-
-
-            let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page + 1}&pageSize=${this.state.pageSize}&country=us`
-
-            async function fetchText() {
-                let response = await fetch(url);
-                let data = await response.json();
-                return data
-
-            }
-
-            fetchText().then(response => {
-                console.log(response)
-                this.setState({
-                    articles: response.articles,
-                    loading: true,
-                    
-                })
-
-            })
-
             this.setState({
-                page: this.state.page + 1,
-                loading: false
+                page: this.state.page + 1
             })
+
+            this.updateNews()
         }
     }
     handlePrev = async (e) => {
         if (this.state.page >= 1) {
 
-
-
-            let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page - 1}&pageSize=${this.state.pageSize}&country=us`
-
-            async function fetchText() {
-                let response = await fetch(url);
-                let data = await response.json();
-                return data
-    
-            }
-    
-            fetchText().then(response => {
-                console.log(response)
-                this.setState({
-                    articles: response.articles,
-                    loading: true,    
-                })
-    
-            })
-
             this.setState({
-                page: this.state.page - 1,
-                loading: false
+                page: this.state.page - 1
             })
+
+            this.updateNews()
         }
     }
     render() {
@@ -144,11 +93,7 @@ export default class News extends Component {
 
                     {
                         !this.state.loading &&
-                        <div className="text-center">
-                            <div className="spinner-border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
+                        <Loader />
 
 
                     }
