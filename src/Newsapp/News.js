@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import { Link } from 'react-router-dom';
 
 export default class News extends Component {
 
@@ -9,12 +10,13 @@ export default class News extends Component {
             articles: [],
             loading: false,
             page: 1,
-            totalPages: 1
+            totalPages: 1,
+            pageSize : 12
         }
 
     }
     componentDidMount() {
-        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pagesize=12`
+        let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
 
         async function fetchText() {
             let response = await fetch(url);
@@ -24,11 +26,12 @@ export default class News extends Component {
         }
 
         fetchText().then(response => {
-            console.log(response)
+            let pageSizen = response.totalResults > 500? 50 : 25;
             this.setState({
                 articles: response.articles,
                 loading: true,
-                totalPages: Math.ceil(response.totalResults / 12)
+                totalPages: Math.ceil(response.totalResults / pageSizen ),
+                pageSize : pageSizen
             })
 
         })
@@ -40,7 +43,7 @@ export default class News extends Component {
             loading : false
         })
 
-        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pagesize=12`
+        let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
 
         async function fetchText() {
             let response = await fetch(url);
@@ -67,7 +70,7 @@ export default class News extends Component {
 
 
 
-            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page + 1}&pagesize=12`
+            let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page + 1}&pageSize=${this.state.pageSize}&country=us`
 
             async function fetchText() {
                 let response = await fetch(url);
@@ -97,7 +100,7 @@ export default class News extends Component {
 
 
 
-            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page - 1}&pagesize=12`
+            let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page - 1}&pageSize=${this.state.pageSize}&country=us`
 
             async function fetchText() {
                 let response = await fetch(url);
@@ -127,7 +130,16 @@ export default class News extends Component {
         }
         return (
             <div className='container py-3'>
-                <h2 className='py-3'>Top Headlines</h2>
+                <h1 className='py-3 text-center'>Top Headlines</h1>
+                <div className="d-flex justify-content-around py-5">
+                    <Link className='text-dark text-decoration-none c-bold' style={this.props.category === 'business'? activeStyle : {}} to="/newsapp/business">Business</Link>
+                    <Link className='text-dark text-decoration-none c-bold' style={this.props.category === 'entertainment'? activeStyle : {}} to="/newsapp/entertainment">Entertainment</Link>
+                    <Link className='text-dark text-decoration-none c-bold' style={this.props.category === 'general'? activeStyle : {}} to="/newsapp">General</Link>
+                    <Link className='text-dark text-decoration-none c-bold' style={this.props.category === 'health'? activeStyle : {}} to="/newsapp/health">Health</Link>
+                    <Link className='text-dark text-decoration-none c-bold' style={this.props.category === 'science'? activeStyle : {}} to="/newsapp/science">Science</Link>
+                    <Link className='text-dark text-decoration-none c-bold' style={this.props.category === 'sports'? activeStyle : {}} to="/newsapp/sports">Sports</Link>
+                    <Link className='text-dark text-decoration-none c-bold' style={this.props.category === 'technology'? activeStyle : {}} to="/newsapp/technology">Technology</Link>
+                </div>
                 <div className="row h-120 ">
 
                     {
@@ -143,7 +155,7 @@ export default class News extends Component {
                     {
                         // Loader before displaying news items
                         this.state.loading && this.state.articles.map((article) => {
-                            return <NewsItem key={article.url} title={article.title} description={article.description} urlToImage={article.urlToImage} newsUrl={article.url} />
+                            return <NewsItem key={article.url} title={article.title} description={article.description} urlToImage={article.urlToImage} newsUrl={article.url} author={article.author} publishedAt={article.publishedAt} />
                         })
                     }
                 </div>
