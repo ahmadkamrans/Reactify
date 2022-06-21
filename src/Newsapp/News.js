@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 export default class News extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             articles: [],
             loading: false,
@@ -26,7 +26,7 @@ export default class News extends Component {
             loading: false
         })
         console.log('Page In Update:', this.state.page)
-        const url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
+        const url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
 
         async function fetchText() {
             let response = await fetch(url);
@@ -48,7 +48,7 @@ export default class News extends Component {
     fetchData = async () => {
         console.log('Now Page:', this.state.page)
 
-        const url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=967ca64b6faf49759d7e929f7ccb81ec&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
+        const url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
 
         async function fetchText() {
             let response = await fetch(url);
