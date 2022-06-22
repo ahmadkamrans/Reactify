@@ -16,7 +16,7 @@ export default function News(props) {
     useEffect(() => {
         console.log('Component did mount');
         updateNews();
-    });
+    }, []);
 
 
    const updateNews = async () => {
@@ -40,9 +40,9 @@ export default function News(props) {
     }
 
    const fetchData = async () => {
-        console.log('Now Page:', this.state.page)
+        console.log('Now Page:', page)
 
-        const url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.state.pageSize}&country=us`
+        const url = `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}&country=us`
 
         async function fetchText() {
             let response = await fetch(url);
