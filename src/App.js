@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import About from './components/About';
 import Navbar from './components/Navbar';
 import Textform from './components/Textform';
 import Newsapp from './Newsapp/News';
@@ -11,7 +10,6 @@ import {
 } from "react-router-dom";
 function App() {
   const apiKey = process.env.REACT_APP_NEWS_API_KEY
-  console.log(apiKey)
   const [mode, setMode] = useState('light')
   const [alert, setAlert] = useState({
     message: '',
@@ -21,7 +19,6 @@ function App() {
     <Router>
       <Navbar title="TextUtils" mode={mode} setMode={setMode} alert={alert} />
       <Routes>
-        <Route path="/about" element={<About mode={mode} />} />
         <Route path="/" element={<Textform heading="Input Text to analyze" mode={mode} alert={alert} setAlert={setAlert} />} />
         <Route exact path="/newsapp" element={<Newsapp key='general' country='india' apiKey={apiKey} category='general'  />} />
         <Route exact path="/newsapp/business" element={<Newsapp key='business' country='india' apiKey={apiKey} category='business'  />} />

@@ -26,14 +26,15 @@ export default function Navbar(props) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/about">About</Link>
+                                <Link className="nav-link active" aria-current="page" to="/">Text Utils</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/newsapp">News App</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/newsapp">iNote</Link>
+                            </li>
+
                         </ul>
                         <div className="form-check form-switch">
                             <input className="form-check-input c-pointer" onClick={handleMode} type="checkbox" id="flexSwitchCheckDefault" />
