@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Textform from './components/Textform';
 import Newsapp from './Newsapp/News';
+import InotesApp from './iNoteApp/home'
 import {
   BrowserRouter as Router,
   Route,
@@ -21,12 +22,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Textform heading="Input Text to analyze" mode={mode} alert={alert} setAlert={setAlert} />} />
         <Route exact path="/newsapp" element={<Newsapp key='general' country='india' apiKey={apiKey} category='general'  />} />
-        <Route exact path="/newsapp/business" element={<Newsapp key='business' country='india' apiKey={apiKey} category='business'  />} />
-        <Route exact path="/newsapp/entertainment" element={<Newsapp key='entertainment' country='india' apiKey={apiKey} category='entertainment'  />} />
-        <Route exact path="/newsapp/health" element={<Newsapp key='health' country='india' apiKey={apiKey} category='health'  />} />
-        <Route exact path="/newsapp/science" element={<Newsapp key='science' country='india' apiKey={apiKey} category='science'  />} />
-        <Route exact path="/newsapp/sports" element={<Newsapp key='sports' country='india' apiKey={apiKey} category='sports'  />} />
-        <Route exact path="/newsapp/technology" element={<Newsapp key='technology' country='india' apiKey={apiKey} category='technology'  />} />
+        <Route path="/newsapp/business" element={<Newsapp key='business' country='india' apiKey={apiKey} category='business'  />} />
+        <Route path="/newsapp/entertainment" element={<Newsapp key='entertainment' country='india' apiKey={apiKey} category='entertainment'  />} />
+        <Route path="/newsapp/health" element={<Newsapp key='health' country='india' apiKey={apiKey} category='health'  />} />
+        <Route path="/newsapp/science" element={<Newsapp key='science' country='india' apiKey={apiKey} category='science'  />} />
+        <Route path="/newsapp/sports" element={<Newsapp key='sports' country='india' apiKey={apiKey} category='sports'  />} />
+        <Route path="/newsapp/technology" element={<Newsapp key='technology' country='india' apiKey={apiKey} category='technology'  />} />
+        <Route path="/inotes" element={<InotesApp />} />
       </Routes>
     </Router>
   );

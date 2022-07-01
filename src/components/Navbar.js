@@ -32,7 +32,7 @@ export default function Navbar(props) {
                                 <Link className="nav-link" to="/newsapp">News App</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/newsapp">iNote</Link>
+                                <Link className="nav-link" to="/inotes">iNote</Link>
                             </li>
 
                         </ul>
