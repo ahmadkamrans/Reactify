@@ -12,8 +12,8 @@ router.get('/fetchallnotes', fetchUser, async (req, res) => {
 
 
 router.post('/addnote', fetchUser, [
-    body('title', 'Enter valid name').isLength({ min: 2 }),
-    body('description', 'Enter valid email').isLength({ min: 5 })
+    body('title', 'Enter valid Title').isLength({ min: 2 }),
+    body('description', 'Enter valid Description').isLength({ min: 5 })
 ], async (req, res) => {
 
     try {
@@ -24,7 +24,7 @@ router.post('/addnote', fetchUser, [
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const note = new Note({
+        const note = new Notes({
             title,
             description,
             tag,
