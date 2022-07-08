@@ -6,7 +6,7 @@ let notesRoutes = require('./routes/notes')
 // DB connection file
 const connectToMongo = require('./db')
 const express = require('express')
-
+const cors = require('cors')
 
 
 const app = express()
@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 
 // Middlewares
 app.use(express.json())
+app.use(cors())
 app.use('/api/auth', authRoutes)
 app.use('/api/notes', notesRoutes)
 
